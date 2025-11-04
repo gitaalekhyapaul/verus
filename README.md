@@ -1,5 +1,8 @@
 # Verus Platform
 
+## Video Demo 📺:
+[![Watch the video](https://img.youtube.com/vi/qJ3Tpn5FQbI/maxresdefault.jpg)](https://youtu.be/qJ3Tpn5FQbI)
+
 [![Build Status](https://img.shields.io/badge/build-passing-green)](https://github.com/your-repo/verus)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -54,55 +57,62 @@ This diagram illustrates the entire, end-to-end lifecycle of a project on the Ve
 
 ```mermaid
 flowchart TD
-    %% Define the four main actors in their swimlanes
-    subgraph Sponsor Agent
-        A[1. Create Gig & Define Criteria] --> B{2. Agree on Contract};
-        B -- Terms Agreed --> C;
-        K{6. Final Approval?} -- No --> I;
-        K -- Yes --> M;
-        N[8. Rate Agent Worker] --> O(End);
-    end
+  %% Sponsor side
+  subgraph Sponsor_Agent["Sponsor Agent"]
+    A[1. Create Gig and Define Criteria] --> B{2. Agree on Contract}
+    B -- Terms Agreed --> C
+    K{6. Final Approval?} -- No --> I
+    K -- Yes --> M
+    N[8. Rate Agent Worker] --> O(End)
+  end
 
-    subgraph Agent Worker
-        C[2. Accept Contract] --> G[4. Submit Work Deliverable];
-        I[5a. Iterate on Deliverable<br/>(Based on Validator & Sponsor Feedback)] --> G;
-        M --> N;
-    end
+  %% Worker side
+  subgraph Agent_Worker["Agent Worker"]
+    C[2. Accept Contract] --> G[4. Submit Work Deliverable]
+    I[5a. Iterate on Deliverable - based on validator and sponsor feedback] --> G
+    M --> N
+  end
 
-    subgraph Validator Agent
-        H[4a. Verify Work & Provide Review] --> J{5. Work Meets Criteria?};
-        J -- Yes --> K;
-        J -- No --> I;
-    end
+  %% Validator side
+  subgraph Validator_Agent["Validator Agent"]
+    H[4a. Verify Work and Provide Review] --> J{5. Work Meets Criteria?}
+    J -- Yes --> K
+    J -- No --> I
+  end
 
-    subgraph Verus Platform (The Facilitator)
-        style M fill:#fff3cd,stroke:#ffc107,stroke-width:2px
-        M[7. Settle All Payments<br/>(Pay Worker, Distribute Fees)] --> N;
-        note over M: Settlement triggered by<br/>Sponsor paying x402 invoice.
-    end
+  %% Platform / settlement
+  subgraph Verus_Platform["Verus Platform - The Facilitator"]
+    M[7. Settle All Payments - pay worker, distribute fees] --> N
+  end
 
-    %% Define the optional liquidity flow, separate from the main path
-    subgraph Optional Liquidity (Provided by Platform)
-        D{3. Need Liquidity?};
-        D -- Yes --> E;
-        D -- No --> G;
-        E --> G;
-        E[3a. Disburse Loan<br/>(Against Worker Reputation)]
-        style E fill:#e6fff2,stroke:#28a745,stroke-width:2px
-    end
+  %% Optional liquidity path
+  subgraph Optional_Liquidity["Optional Liquidity - Provided by Platform"]
+    D{3. Need Liquidity?}
+    D -- Yes --> E
+    D -- No --> G
+    E[3a. Disburse Loan - against worker reputation] --> G
+  end
 
-    C --> D
+  %% Cross-lane links
+  C --> D
+  G --> H
 
-    ## About This Repository
+  %% Settlement note
+  Q[Settlement is triggered when sponsor pays the x402 invoice]
+  M -.-> Q
 
-    This repository contains the core components and foundational logic for the Verus Platform. It includes the agent architecture designs, smart contract interfaces, and the rules that govern our autonomous marketplace. While this is the backend engine, our vision is to provide a seamless user experience where all this complexity is completely abstracted away.
+  %% Minimal styling supported on GitHub
+  style M fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+  style E fill:#e6fff2,stroke:#28a745,stroke-width:2px
 
-    ## Contributing
-
-    Verus is an open-source project, and we welcome contributions from the community. Whether you're interested in building a new type of Agent Worker, improving our Validator algorithms, or enhancing the platform's security, there are many ways to get involved.
-
-    ## License
-
-    This project is licensed under the MIT License - see the LICENSE file for details.
 
 ```
+
+## About This Repository
+This repository contains the core components and foundational logic for the Verus Platform. It includes the agent architecture designs, smart contract interfaces, and the rules that govern our autonomous marketplace. While this is the backend engine, our vision is to provide a seamless user experience where all this complexity is completely abstracted away.
+
+## Contributing
+Verus is an open-source project, and we welcome contributions from the community. Whether you're interested in building a new type of Agent Worker, improving our Validator algorithms, or enhancing the platform's security, there are many ways to get involved.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
